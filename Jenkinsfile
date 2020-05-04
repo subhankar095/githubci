@@ -15,8 +15,8 @@ pipeline {
          stage('publish to github') {
           steps {
             script {
-	            withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKEN', variable: 'GITHUB_ACCESS_TOKEN')]) {
-	            sh '''
+		    withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKEN', variable: 'GITHUB_ACCESS_TOKEN')]) {
+		    sh '''
                     zip -r  artifact.zip .
                     url_without_suffix="${GIT_URL%.*}"
                     echo $url_without_suffix
@@ -32,10 +32,10 @@ pipeline {
                     echo $release
                     curl -X POST -H "Authorization:token $GITHUB_ACCESS_TOKEN" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/$user/$reponame/releases/$id/assets?name=artifact.zip
                     rm -f artifact.zip
-                    '''
-	            }
-	      } 
-           }
+                '''
+		}
+	    }
+          }
        }
     }
 }
