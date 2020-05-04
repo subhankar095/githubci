@@ -15,7 +15,7 @@ pipeline {
          stage('publish to github') {
           steps {
             script {
-		    withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKENS', variable: 'GITHUB_ACCESS_TOKEN')]) {
+		    withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKEN', variable: 'GITHUB_ACCESS_TOKEN')]) {
 		    sh '''
                     zip -r  artifact.zip .
                     url_without_suffix="${GIT_URL%.*}"
