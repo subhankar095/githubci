@@ -28,7 +28,7 @@ pipeline {
                     echo $tag
                     # Get the full message associated with this tag
                     #message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-                    release=$(curl -X POST -H "Authorization:token $GITHUB_ACCESS_TOKEN" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"master\", \"name\": \"$tag\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos$user$reponame/releases)
+                    release=$(curl -X POST -H "Authorization:token $GITHUB_ACCESS_TOKEN" --data '{"tag_name": "$tag", "target_commitish": "master", "name": "$tag", "draft": false, "prerelease": true}' https://api.github.com/repos$user$reponame/releases)
                     echo $release
                     curl -X POST -H "Authorization:token $GITHUB_ACCESS_TOKEN" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos$user$reponame/releases/$id/assets?name=artifact.zip
                     rm -f artifact.zip
