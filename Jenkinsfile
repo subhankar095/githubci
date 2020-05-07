@@ -14,9 +14,6 @@ def sendSlackNotifFn(String buildResult,String channel) {
 }
 pipeline {
     agent any
-    environment {
-        EMAIL_TO = 'subhankarpati1@gmail.com'
-    }
     options {
         // Stop the build early in case of compile or test failures
         skipStagesAfterUnstable()
