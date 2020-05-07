@@ -3,6 +3,10 @@ pipeline {
     environment {
         EMAIL_TO = 'subhankarpati1@gmail.com'
     }
+    options {
+        // Stop the build early in case of compile or test failures
+        skipStagesAfterUnstable()
+    }
     stages {
         stage('Get code') {
         steps {
@@ -10,9 +14,9 @@ pipeline {
             echo "getting code"
         }
         }
-         stage('build') {
+         stage('test') {
           steps {
-            echo "build step simulation"
+            py.test --junitxml results.xml tests.py
            }
          }
          stage('publish to github') {
