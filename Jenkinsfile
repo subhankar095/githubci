@@ -16,8 +16,12 @@ pipeline {
         }
          stage('test') {
           steps {
-            py.test --junitxml results.xml tests.py
+            script {
+            sh '''
+               py.test --junitxml results.xml tests.py
+            '''
            }
+          }
          }
          stage('publish to github') {
           steps {
